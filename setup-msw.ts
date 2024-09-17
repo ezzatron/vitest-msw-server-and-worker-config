@@ -1,10 +1,12 @@
 import { server as viServer } from "@vitest/browser/context";
-import { setupServer, type SetupServer } from "msw/node";
-import { setupWorker, type SetupWorker } from "msw/browser";
+import type { SetupServer } from "msw/node";
+import type { SetupWorker } from "msw/browser";
 import { afterAll, beforeAll, beforeEach } from "vitest";
 
-export function setupMSW(): SetupServer | SetupWorker {
+export async function setupMSW(): Promise<SetupServer | SetupWorker> {
+  // If this is defined, we are running under Vitest browser mode
   if (viServer) {
+    const { setupWorker } = await import("msw/browser");
     const worker = setupWorker();
 
     beforeAll(async () => {
@@ -25,6 +27,8 @@ export function setupMSW(): SetupServer | SetupWorker {
     return worker;
   }
 
+  // Otherwise, we are running under Node.js
+  const { setupServer } = await import("msw/node");
   const server = setupServer();
 
   beforeAll(() => {

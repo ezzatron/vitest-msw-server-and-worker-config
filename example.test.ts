@@ -2,7 +2,9 @@ import { expect, it } from "vitest";
 import { setupMSW } from "./setup-msw.js";
 import { http, HttpResponse } from "msw";
 
-const server = setupMSW();
+// setupMSW is a helper function that calls setupServer or setupWorker based on
+// whether the test is running under Vitest browser mode or not
+const server = await setupMSW();
 
 it("should respond to requests", async () => {
   server.use(
