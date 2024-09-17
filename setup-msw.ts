@@ -10,10 +10,7 @@ export async function setupMSW(): Promise<SetupServer | SetupWorker> {
     const worker = setupWorker();
 
     beforeAll(async () => {
-      await worker.start({
-        quiet: true,
-        onUnhandledRequest: "bypass",
-      });
+      await worker.start({ quiet: true });
     });
 
     beforeEach(() => {
