@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@vitest/browser": "^2.1.1",
+    "happy-dom": "^15.7.4",
+    "msw": "^2.4.8",
+    "playwright": "^1.47.1",
+    "vitest": "^2.1.1"
+  },
+  "scripts": {
+    "test": "playwright install chromium --with-deps && vitest"
+  }
+}
